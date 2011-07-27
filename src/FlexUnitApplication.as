@@ -6,6 +6,7 @@ package
 	
 	import flexUnitTests.MyTestSuite;
 	import flexUnitTests.tests.BitHackerTest;
+	import flexUnitTests.tests.ComponentTest;
 	
 	import flexunit.flexui.FlexUnitTestRunnerUIAS;
 	
@@ -26,6 +27,7 @@ package
 		public function currentRunTestSuite():Array
 		{
 			var testsToRun:Array = new Array();
+			testsToRun.push(flexUnitTests.tests.ComponentTest);
 			testsToRun.push(flexUnitTests.tests.BitHackerTest);
 			testsToRun.push(flexUnitTests.MyTestSuite);
 			return testsToRun;

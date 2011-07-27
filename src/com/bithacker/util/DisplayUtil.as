@@ -1,7 +1,9 @@
 package com.bithacker.util
 {
+	import flash.display.DisplayObject;
 	import flash.display.Shape;
 	import flash.display.Sprite;
+	import flash.geom.Rectangle;
 
 	public class DisplayUtil
 	{

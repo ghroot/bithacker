@@ -1,4 +1,4 @@
-package com.bithacker.ui
+package com.bithacker.view.ui.core
 {
 	public class ScreenSize
 	{

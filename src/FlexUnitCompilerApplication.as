@@ -8,10 +8,14 @@ package
 	import flash.display.Sprite;
 	
 	import flexUnitTests.MyTestSuite;
+	import flexUnitTests.tests.BitHackerTest;
+	import flexUnitTests.tests.ComponentTest;
 	
 	public class FlexUnitCompilerApplication extends Sprite
 	{
 		
+		private var flexUnitTests_tests_BitHackerTest_obj:flexUnitTests.tests.BitHackerTest;
+		private var flexUnitTests_tests_ComponentTest_obj:flexUnitTests.tests.ComponentTest;
 		private var flexUnitTests_MyTestSuite_obj:flexUnitTests.MyTestSuite;
 	}
 }
