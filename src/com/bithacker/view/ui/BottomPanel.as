@@ -5,7 +5,7 @@ package com.bithacker.view.ui
 	import com.bithacker.view.ui.core.ScreenSize;
 	
 	import flash.geom.Point;
-	import flash.geom.Rectangle;
+	import com.bithacker.view.ui.shop.ShopListSubScreen;
 	
 	public class BottomPanel extends Panel
 	{
@@ -30,7 +30,7 @@ package com.bithacker.view.ui
 			infoScreenButton.y = 5;
 			addChild(infoScreenButton);
 			
-			var shopScreenButton : Button = new BottomPanelButton(ShopSubScreen);
+			var shopScreenButton : Button = new BottomPanelButton(ShopListSubScreen);
 			shopScreenButton.x = 60;
 			shopScreenButton.y = 5;
 			addChild(shopScreenButton);

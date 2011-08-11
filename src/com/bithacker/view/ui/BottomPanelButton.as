@@ -26,7 +26,7 @@ package com.bithacker.view.ui
 		private function onClick() : void
 		{
 			var newSubScreen : SubScreen = new _screenClass() as SubScreen;
-			BitHacker.mainScreen.setSubScreen(newSubScreen);
+			BitHacker.getMainScreen().setSubScreen(newSubScreen);
 		}
 	}
 }
