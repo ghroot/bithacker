@@ -4,7 +4,6 @@ package com.bithacker.view.ui.core
 	import com.greensock.TweenLite;
 	
 	import flash.display.Sprite;
-	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
@@ -13,12 +12,12 @@ package com.bithacker.view.ui.core
 	
 	public class ScrollArea extends Component
 	{
+		private var _size : Point;
 		private var _scrollableLayer : Layer;
 		
 		private var _mouseDown : NativeSignal;
 		private var _mouseUp : NativeSignal;
 		private var _mouseMove : NativeSignal;
-		private var _enterFrame : NativeSignal;
 		
 		private var _isDraggingContent : Boolean;
 		private var _draggingContentMouseStartPosition : Point;
@@ -29,8 +28,9 @@ package com.bithacker.view.ui.core
 		
 		public function ScrollArea(size : Point, scrollableLayer : Layer)
 		{
-			super(size, 0);
+			super();
 			
+			_size = size;
 			_scrollableLayer = scrollableLayer;
 			
 			initialise();
@@ -38,7 +38,7 @@ package com.bithacker.view.ui.core
 		
 		private function initialise() : void
 		{
-			setMaskArea(new Rectangle(0, 0, size.x, size.y));
+			setMaskArea(new Rectangle(0, 0, _size.x, _size.y));
 			
 			addChild(_scrollableLayer);
 			
@@ -49,7 +49,7 @@ package com.bithacker.view.ui.core
 		
 		private function initialiseScrollHandle() : void
 		{
-			_draggingScrollHandle = DisplayUtil.createSprite(5, 20, 0xdddddd);
+			_draggingScrollHandle = DisplayUtil.createSprite(5, 20, 0);
 			_draggingScrollHandle.x = width - _draggingScrollHandle.width - 1;
 			_draggingScrollHandle.alpha = 0;
 			addChild(_draggingScrollHandle);	
@@ -57,12 +57,10 @@ package com.bithacker.view.ui.core
 		
 		private function initialiseSignals() : void
 		{
-			_enterFrame = new NativeSignal(this, Event.ENTER_FRAME, Event);
 			_mouseDown = new NativeSignal(this, MouseEvent.MOUSE_DOWN, MouseEvent);
 			_mouseUp = new NativeSignal(this, MouseEvent.MOUSE_UP, MouseEvent);
 			_mouseMove = new NativeSignal(this, MouseEvent.MOUSE_MOVE, MouseEvent);
 			
-			_enterFrame.add(onEnterFrame);
 			_mouseDown.add(onMouseDown);
 			_mouseUp.add(onMouseUp);
 			_mouseMove.add(onMouseMove);	
@@ -70,7 +68,6 @@ package com.bithacker.view.ui.core
 		
 		private function destroySignals() : void
 		{
-			_enterFrame.removeAll();
 			_mouseDown.removeAll();
 			_mouseUp.removeAll();	
 		}
@@ -99,9 +96,9 @@ package com.bithacker.view.ui.core
 						fadeOutScrollBar();
 					}
 				}
-				else if (_scrollableLayer.y < -(_scrollableLayer.height - size.y))
+				else if (_scrollableLayer.y < -(_scrollableLayer.height - _size.y))
 				{
-					_scrollableLayer.y = -(_scrollableLayer.height - size.y);
+					_scrollableLayer.y = -(_scrollableLayer.height - _size.y);
 					snapScrollableLayerToNearestPixel();
 					_draggingContentVelY = 0;
 					if (!_isDraggingContent)
@@ -114,7 +111,7 @@ package com.bithacker.view.ui.core
 		
 		private function isScrollableContentEqualOrSmallerThanScreenBounds() : Boolean
 		{
-			return _scrollableLayer.height <= size.y;
+			return _scrollableLayer.height <= _size.y;
 		}
 		
 		private function isScrollableContentLargerThanScreenBounds() : Boolean
@@ -175,8 +172,8 @@ package com.bithacker.view.ui.core
 			
 			forceContentWithinScreenBounds();
 			
-			_draggingScrollHandle.height = (size.y / _scrollableLayer.height) * size.y - 2;
-			_draggingScrollHandle.y = -_scrollableLayer.y / (_scrollableLayer.height / size.y) + 1;	
+			_draggingScrollHandle.height = (_size.y / _scrollableLayer.height) * _size.y - 2;
+			_draggingScrollHandle.y = -_scrollableLayer.y / (_scrollableLayer.height / _size.y) + 1;	
 		}
 		
 		private function showScrollBar() : void
@@ -209,8 +206,10 @@ package com.bithacker.view.ui.core
 			}
 		}
 		
-		public function onEnterFrame(event : Event) : void
+		override public function tick() : void
 		{
+			super.tick();
+			
 			tickScrollDrag();
 		}
 	}

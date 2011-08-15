@@ -7,9 +7,9 @@ package com.bithacker.view.ui
 	
 	public class SubScreen extends Screen
 	{
-		public function SubScreen(backgroundColor : uint = 0xffffff)
+		public function SubScreen()
 		{
-			super(new Point(ScreenSize.WIDTH, ScreenSize.HEIGHT - TopPanel.HEIGHT - BottomPanel.HEIGHT), backgroundColor);
+			super(new Point(ScreenSize.WIDTH, ScreenSize.HEIGHT - TopPanel.HEIGHT - BottomPanel.HEIGHT));
 			
 			initialise();
 		}

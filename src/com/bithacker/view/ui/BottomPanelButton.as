@@ -1,9 +1,8 @@
 package com.bithacker.view.ui
 {
 	import com.bithacker.main.BitHacker;
+	import com.bithacker.util.DisplayUtil;
 	import com.bithacker.view.ui.core.Button;
-	
-	import flash.geom.Point;
 	
 	public class BottomPanelButton extends Button
 	{
@@ -11,7 +10,7 @@ package com.bithacker.view.ui
 		
 		public function BottomPanelButton(screenClass : Class)
 		{
-			super(new Point(50, 50), 0xcccccc, 0x555555);
+			super(DisplayUtil.createSprite(50, 50, 0xcccccc));
 			
 			_screenClass = screenClass;
 			

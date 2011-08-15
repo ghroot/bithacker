@@ -3,32 +3,80 @@ package com.bithacker.view.ui.core
 	import com.bithacker.util.DisplayUtil;
 	
 	import flash.display.DisplayObject;
-	import flash.display.Shape;
+	import flash.display.MovieClip;
 	import flash.display.Sprite;
-	import flash.geom.Point;
 	import flash.geom.Rectangle;
+	import flash.text.TextField;
 	
 	public class Component extends Sprite
 	{
-		protected var size : Point;
-		protected var backgroundColor : uint;
-		private var _backgroundSprite : Sprite;
+		private var _sprite : Sprite;
 		private var _maskSprite : Sprite;
 		
-		public function Component(size : Point, backgroundColor : uint = 0xffffff)
+		public function Component(sprite : Sprite = null)
 		{
 			super();
 			
-			this.size = size;
-			this.backgroundColor = backgroundColor;
+			_sprite = sprite;
 			
 			initialise();
 		}
 		
 		private function initialise() : void
 		{
-			_backgroundSprite = DisplayUtil.createSprite(size.x, size.y, backgroundColor);
-			addChild(_backgroundSprite);
+			if (_sprite != null &&
+				_sprite.parent == null)
+			{
+				addChild(_sprite);
+			}
+		}
+		
+		public function getSprite() : Sprite
+		{
+			return _sprite;
+		}
+		
+		public function getSpriteAsMovieClip() : MovieClip
+		{
+			return getSprite() as MovieClip;
+		}
+		
+		public function isSpriteChild() : Boolean
+		{
+			return contains(getSprite());
+		}
+		
+		protected function findChildDisplayObjectWithName(name : String) : DisplayObject
+		{
+			return DisplayUtil.findChildByName(getSprite(), name);
+		}
+		
+		protected function findChildTextFieldWithName(name : String) : TextField
+		{
+			return findChildDisplayObjectWithName(name) as TextField;
+		}
+		
+		protected function findChildSpriteWithName(name : String) : Sprite
+		{
+			return findChildDisplayObjectWithName(name) as Sprite;
+		}
+		
+		protected function findChildMovieClipWithName(name : String) : MovieClip
+		{
+			return findChildDisplayObjectWithName(name) as MovieClip;
+		}
+		
+		public function refresh() : void
+		{
+			for (var i : uint = 0; i < numChildren; i++)
+			{
+				var child : DisplayObject = getChildAt(i);
+				if (child is Component)
+				{
+					var component : Component = child as Component;
+					component.refresh();
+				}
+			}
 		}
 		
 		public function destroy() : void
@@ -36,15 +84,26 @@ package com.bithacker.view.ui.core
 			destroyChildComponents();
 		}
 		
-		private function destroyChildComponents() : void
+		protected function getChildComponents() : Vector.<Component>
 		{
-			for (var i : int = numChildren - 1; i >= 0; i--)
+			var childComponents : Vector.<Component> = new Vector.<Component>();
+			for (var i : uint = 0; i < numChildren; i++)
 			{
 				var child : DisplayObject = getChildAt(i);
 				if (child is Component)
 				{
-					Component(child).destroy();
+					childComponents.push(child);
 				}
+			}
+			return childComponents;
+		}
+		
+		private function destroyChildComponents() : void
+		{
+			var childComponents : Vector.<Component> = getChildComponents();
+			for each (var component : Component in childComponents)
+			{
+				component.destroy();
 			}
 		}
 		
@@ -57,13 +116,6 @@ package com.bithacker.view.ui.core
 			addChild(_maskSprite);
 		}
 		
-		protected function updateBackgroundSpriteWithColor(color : uint) : void
-		{
-			Shape(_backgroundSprite.getChildAt(0)).graphics.beginFill(color);
-			Shape(_backgroundSprite.getChildAt(0)).graphics.drawRect(0, 0, size.x, size.y);
-			Shape(_backgroundSprite.getChildAt(0)).graphics.endFill();	
-		}
-		
 		public function show() : void
 		{
 			visible = true;
@@ -72,6 +124,21 @@ package com.bithacker.view.ui.core
 		public function hide() : void
 		{
 			visible = false;
+		}
+		
+		public function tick() : void
+		{
+			tickChildComponents();
+		}
+		
+		private function tickChildComponents() : void
+		{
+			var childComponents : Vector.<Component> = getChildComponents();
+			childComponents.reverse();
+			for each (var component : Component in childComponents)
+			{
+				component.tick();
+			}	
 		}
 	}
 }

@@ -5,9 +5,9 @@ package com.bithacker.view.ui.core
 
 	public class Layer extends Component
 	{
-		public function Layer(size : Point, backgroundColor : uint = 0xffffff)
+		public function Layer()
 		{
-			super(size, backgroundColor);
+			super();
 		}
 	}
 }

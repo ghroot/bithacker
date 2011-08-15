@@ -5,7 +5,7 @@ package com.bithacker.view.ui
 	{
 		public function MapSubScreen()
 		{
-			super(0xbbbbbb);
+			super();
 		}
 	}
 }

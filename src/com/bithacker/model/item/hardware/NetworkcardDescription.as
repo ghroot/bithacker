@@ -26,7 +26,7 @@ package com.bithacker.model.item.hardware
 		
 		override public function getDescriptionText() : String
 		{
-			return super.getDescriptionText() + "\nBandwidth: " + getBandwidth();
+			return "Bandwidth: " + getBandwidth() + " MBIT";
 		}
 	}
 }

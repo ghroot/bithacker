@@ -8,5 +8,10 @@ package com.bithacker.model.item.hardware
 		{
 			super(description);
 		}
+		
+		override public function getHarddriveDescription() : HarddriveDescription
+		{
+			return getDescription() as HarddriveDescription;
+		}
 	}
 }

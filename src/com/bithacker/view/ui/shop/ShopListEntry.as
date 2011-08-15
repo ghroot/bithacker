@@ -2,22 +2,23 @@ package com.bithacker.view.ui.shop
 {
 	import com.bithacker.main.BitHacker;
 	import com.bithacker.model.item.Description;
+	import com.bithacker.util.DisplayUtil;
 	import com.bithacker.view.ui.core.Button;
-	import com.bithacker.view.ui.core.ScreenSize;
 	import com.bithacker.view.ui.core.text.WrappedTextField;
 	
-	import flash.geom.Point;
-	import flash.text.AntiAliasType;
-	import flash.text.TextFormat;
+	import flash.display.Sprite;
+	import flash.text.TextField;
 	
 	public class ShopListEntry extends Button
 	{
 		private var _description : Description;
-		private var _textField : WrappedTextField;
+		private var _nameTextField : WrappedTextField;
+		private var _costTextField : WrappedTextField;
+		private var _infoTextField : WrappedTextField;
 		
 		public function ShopListEntry(description : Description)
 		{
-			super(new Point(ScreenSize.WIDTH, 60), 0xbbbbbb, 0x777777);
+			super(DisplayUtil.createMovieClipFromName("ShopEntryScene"));
 			
 			_description = description;
 			
@@ -26,18 +27,16 @@ package com.bithacker.view.ui.shop
 		
 		private function initialise() : void
 		{
-			_textField = new WrappedTextField();
-			_textField.height = 60;
-			_textField.defaultTextFormat = new TextFormat("FixedFont", 8, 0);
-			_textField.embedFonts = true;
-			_textField.antiAliasType = AntiAliasType.ADVANCED;
-			_textField.text = _description.getDescriptionText();
-			addChild(_textField);
-			
 			clicked.add(onClick);
 			
-			graphics.lineStyle(1, 0);
-			graphics.drawRect(0, 0, width - 1, height - 1);
+			_nameTextField = new WrappedTextField(findChildTextFieldWithName("nameTextField"));
+			_nameTextField.text = _description.getName();
+			
+			_costTextField = new WrappedTextField(findChildTextFieldWithName("costTextField"));
+			_costTextField.text = _description.getCost().getFriendlyString();
+			
+			_infoTextField = new WrappedTextField(findChildTextFieldWithName("infoTextField"));
+			_infoTextField.text = _description.getDescriptionText();
 		}
 		
 		private function onClick() : void

@@ -30,10 +30,5 @@ package com.bithacker.model.item.hardware
 		{
 			return new MotherboardItem(this);
 		}
-		
-		override public function getDescriptionText() : String
-		{
-			return super.getDescriptionText() + "\nCPU Slots: " + getNCpuSlots() + "\nMemory Slots: " + getNMemorySlots();
-		}
 	}
 }

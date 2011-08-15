@@ -1,6 +1,7 @@
 package com.bithacker.view.ui
 {
 	import com.bithacker.main.BitHacker;
+	import com.bithacker.util.DisplayUtil;
 	import com.bithacker.view.ui.core.Button;
 	import com.bithacker.view.ui.core.Panel;
 	import com.bithacker.view.ui.core.ScreenSize;
@@ -27,9 +28,9 @@ package com.bithacker.view.ui
 
 		private function initialiseBackButton() : void
 		{
-			_backButton = new Button(new Point(30, 20), 0xcccccc, 0x555555);
-			_backButton.x = 5;
-			_backButton.y = 5;
+			_backButton = new Button(DisplayUtil.createMovieClipFromName("BackButtonScene"));
+			_backButton.x = 2;
+			_backButton.y = 2;
 			_backButton.clicked.add(onBackButtonClicked);
 			addChild(_backButton);
 		}

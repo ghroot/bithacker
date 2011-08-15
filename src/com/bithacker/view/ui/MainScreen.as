@@ -15,7 +15,7 @@ package com.bithacker.view.ui
 
 		public function MainScreen()
 		{
-			super(new Point(ScreenSize.WIDTH, ScreenSize.HEIGHT), 0xeeeeee);
+			super(new Point(ScreenSize.WIDTH, ScreenSize.HEIGHT));
 			
 			initialise();
 		}
@@ -71,7 +71,8 @@ package com.bithacker.view.ui
 
 			_subScreen = newSubScreen;
 			_subScreen.y = TopPanel.HEIGHT;
-
+			_subScreen.refresh();
+			
 			if (_subScreen != null)
 			{
 				addChild(_subScreen);

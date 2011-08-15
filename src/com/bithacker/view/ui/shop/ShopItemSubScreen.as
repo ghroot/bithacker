@@ -1,15 +1,14 @@
 package com.bithacker.view.ui.shop
 {
 	import com.bithacker.main.BitHacker;
+	import com.bithacker.model.activity.software.SoftwareActivity;
 	import com.bithacker.model.item.Description;
 	import com.bithacker.model.item.Item;
+	import com.bithacker.model.item.software.SoftwareItem;
+	import com.bithacker.util.DisplayUtil;
 	import com.bithacker.view.ui.SubScreen;
 	import com.bithacker.view.ui.core.Button;
 	import com.bithacker.view.ui.core.text.WrappedTextField;
-	
-	import flash.geom.Point;
-	import flash.text.AntiAliasType;
-	import flash.text.TextFormat;
 
 	public class ShopItemSubScreen extends SubScreen
 	{
@@ -19,7 +18,7 @@ package com.bithacker.view.ui.shop
 
 		public function ShopItemSubScreen(description : Description)
 		{
-			super(0xffffff);
+			super();
 
 			_description = description;
 
@@ -30,13 +29,12 @@ package com.bithacker.view.ui.shop
 		{
 			_textField = new WrappedTextField();
 			_textField.height = 60;
-			_textField.defaultTextFormat = new TextFormat("FixedFont", 8, 0xffffff);
-			_textField.embedFonts = true;
-			_textField.antiAliasType = AntiAliasType.ADVANCED;
-			_textField.text = _description.getDescriptionText();
+			_textField.setFont("wendy");
+			_textField.setSize(20);
+			_textField.text = _description.getName();
 			addChild(_textField);
 
-			_buyButton = new Button(new Point(60, 25), 0x888888, 0x555555);
+			_buyButton = new Button(DisplayUtil.createSprite(60, 25, 0x888888));
 			_buyButton.x = 10;
 			_buyButton.y = 50;
 			_buyButton.clicked.add(onBuyButtonClicked);
@@ -47,6 +45,12 @@ package com.bithacker.view.ui.shop
 		{
 			var itemToBuy : Item = _description.createItem();
 			BitHacker.getUser().buy(itemToBuy);
+			
+			// TEMP: Start software activity
+			if (itemToBuy is SoftwareItem)
+			{
+				BitHacker.getUser().addAndStartActivity(new SoftwareActivity(itemToBuy as SoftwareItem));
+			}
 		}
 	}
 }

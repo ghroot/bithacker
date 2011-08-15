@@ -38,7 +38,7 @@ package com.bithacker.model.item
 		
 		public function getDescriptionText() : String
 		{
-			return getName() + "\n" + getCost().getFriendlyString();
+			return "";
 		}
 	}
 }

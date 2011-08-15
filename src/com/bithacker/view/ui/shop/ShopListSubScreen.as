@@ -3,34 +3,38 @@ package com.bithacker.view.ui.shop
 	import com.bithacker.model.database.Database;
 	import com.bithacker.model.item.Description;
 	import com.bithacker.view.ui.SubScreen;
-	import com.bithacker.view.ui.core.Screen;
+	import com.bithacker.view.ui.layout.Layout;
+	import com.bithacker.view.ui.layout.VerticalLayout;
 	
 	public class ShopListSubScreen extends SubScreen
 	{
-		private var _descriptions : Vector.<Description>;
+		private var _layout : Layout;
 		
 		public function ShopListSubScreen()
 		{
-			super(0x000000);
+			super();
 			
 			initialise();
 		}
 		
 		private function initialise() : void
 		{
-			_descriptions = Database.instance.getShopDescriptions();
+			_layout = new VerticalLayout();
 			
 			initialiseShopListEntries();
 		}
 
 		private function initialiseShopListEntries() : void
 		{
-			for (var i : uint = 0; i < _descriptions.length; i++)
+			var descriptions : Vector.<Description> = Database.instance.getShopDescriptions();
+			for (var i : uint = 0; i < descriptions.length; i++)
 			{
-				var shopListEntry : ShopListEntry = new ShopListEntry(_descriptions[i]);
-				shopListEntry.y = i * shopListEntry.height;
+				var shopListEntry : ShopListEntry = new ShopListEntry(descriptions[i]);
 				getContentLayer().addChild(shopListEntry);
+				_layout.addComponent(shopListEntry);
 			}
+			
+			_layout.arrange();
 		}
 	}
 }

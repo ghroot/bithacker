@@ -1,7 +1,9 @@
 package com.bithacker.view.ui.core
 {
+	import flash.display.Sprite;
 	import flash.events.MouseEvent;
 	import flash.geom.Point;
+	import flash.utils.Dictionary;
 	
 	import org.osflash.signals.Signal;
 	import org.osflash.signals.natives.NativeSignal;
@@ -10,28 +12,39 @@ package com.bithacker.view.ui.core
 	{
 		private static const MAX_MOUSE_POSITION_DISTANCE_FOR_CLICK : uint = 5;
 		
-		private var _downBackgroundColor : uint;
-		
 		private var _mouseUp : NativeSignal;
 		private var _mouseDown : NativeSignal;
 		private var _mouseMove : NativeSignal;
 		private var _mouseOut : NativeSignal;
 		
-		private var _isMouseDown : Boolean;
+		private var _buttonState : uint;
+		private var _buttonStateToLabelMapping : Dictionary;
 		private var _mouseDownGlobalPosition : Point;
 		
 		public var clicked : Signal;
 		
-		public function Button(size : Point, backgroundColor : uint = 0xffffff, downBackgroundColor : uint = 0xffffff)
+		public function Button(sprite : Sprite)
 		{
-			super(size, backgroundColor);
-			
-			_downBackgroundColor = downBackgroundColor;
+			super(sprite);
 			
 			initialise();
 		}
 		
 		private function initialise() : void
+		{
+			initialiseSignals();
+			
+			_buttonStateToLabelMapping = new Dictionary();
+			_buttonStateToLabelMapping[ButtonState.UP] = "up";
+			_buttonStateToLabelMapping[ButtonState.DOWN] = "down";
+			
+			useHandCursor = true;
+			buttonMode = true;
+			
+			setButtonState(ButtonState.UP);
+		}
+		
+		private function initialiseSignals() : void
 		{
 			_mouseDown = new NativeSignal(this, MouseEvent.MOUSE_DOWN, MouseEvent);
 			_mouseUp = new NativeSignal(this, MouseEvent.MOUSE_UP, MouseEvent);
@@ -42,60 +55,73 @@ package com.bithacker.view.ui.core
 			_mouseDown.add(onMouseDown);
 			_mouseUp.add(onMouseUp);
 			_mouseMove.add(onMouseMove);
-			_mouseOut.add(onMouseOut);
-			
-			useHandCursor = true;
-			buttonMode = true;
+			_mouseOut.add(onMouseOut);	
+		}
+		
+		private function destroySignals() : void
+		{
+			_mouseDown.removeAll();
+			_mouseUp.removeAll();
+			_mouseOut.removeAll();
+			clicked.removeAll();	
 		}
 		
 		override public function destroy() : void
 		{
 			super.destroy();
 			
-			_mouseDown.removeAll();
-			_mouseUp.removeAll();
-			_mouseOut.removeAll();
-			clicked.removeAll();
+			destroySignals();
+		}
+		
+		public function getButtonState() : uint
+		{
+			return _buttonState;
+		}
+		
+		private function setButtonState(buttonState : uint) : void
+		{
+			_buttonState = buttonState;
+			
+			if (getSpriteAsMovieClip() != null)
+			{
+				getSpriteAsMovieClip().gotoAndStop(_buttonStateToLabelMapping[_buttonState]);
+			}
 		}
 		
 		private function onMouseDown(event : MouseEvent) : void
 		{
-			updateBackgroundSpriteWithColor(_downBackgroundColor);
 			_mouseDownGlobalPosition = localToGlobal(new Point(mouseX, mouseY));
-			_isMouseDown = true;
+			setButtonState(ButtonState.DOWN);
 		}
 		
 		private function onMouseUp(event : MouseEvent) : void
 		{
-			if (_isMouseDown)
+			if (getButtonState() == ButtonState.DOWN)
 			{
 				if (isCurrentMousePositionCloseToMouseDownPosition())
 				{
 					clicked.dispatch();
 				}
-				updateBackgroundSpriteWithColor(backgroundColor);
-				_isMouseDown = false;
+				setButtonState(ButtonState.UP);
 			}
 		}
 		
 		private function onMouseMove(event : MouseEvent) : void
 		{
-			if (_isMouseDown)
+			if (getButtonState() == ButtonState.DOWN)
 			{
 				if (!isCurrentMousePositionCloseToMouseDownPosition())
 				{
-					updateBackgroundSpriteWithColor(backgroundColor);
-					_isMouseDown = false;
+					setButtonState(ButtonState.UP);
 				}
 			}
 		}
 		
 		private function onMouseOut(event : MouseEvent) : void
 		{
-			if (_isMouseDown)
+			if (getButtonState() == ButtonState.DOWN)
 			{
-				updateBackgroundSpriteWithColor(backgroundColor);
-				_isMouseDown = false;
+				setButtonState(ButtonState.UP);
 			}
 		}
 		

@@ -9,5 +9,10 @@ package com.bithacker.model.item.software
 		{
 			super(description);
 		}
+		
+		public function getSoftwareDescription() : SoftwareDescription
+		{
+			return getDescription() as SoftwareDescription;
+		}
 	}
 }

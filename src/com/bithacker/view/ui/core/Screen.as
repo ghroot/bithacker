@@ -5,23 +5,26 @@ package com.bithacker.view.ui.core
 
 	public class Screen extends Component
 	{
+		private var _size : Point;
 		private var _contentLayer : Layer;
 		private var _scrollArea : ScrollArea;
 		
-		public function Screen(size : Point, backgroundColor : uint = 0xffffff)
+		public function Screen(size : Point)
 		{
-			super(size, backgroundColor);
+			super();
+			
+			_size = size;
 			
 			initialise();
 		}
 		
 		private function initialise() : void
 		{
-			setMaskArea(new Rectangle(0, 0, size.x, size.y));
+			setMaskArea(new Rectangle(0, 0, _size.x, _size.y));
 			
-			_contentLayer = new Layer(new Point(0, 0));
+			_contentLayer = new Layer();
 			
-			_scrollArea = new ScrollArea(size.clone(), _contentLayer);
+			_scrollArea = new ScrollArea(_size.clone(), _contentLayer);
 			addChild(_scrollArea);
 		}
 		

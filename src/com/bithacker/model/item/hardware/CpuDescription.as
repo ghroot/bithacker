@@ -26,7 +26,7 @@ package com.bithacker.model.item.hardware
 		
 		override public function getDescriptionText() : String
 		{
-			return super.getDescriptionText() + "\nSpeed: " + getSpeed();
+			return "Speed: " + getSpeed() + " MHZ";
 		}
 	}
 }
