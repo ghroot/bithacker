@@ -48,15 +48,15 @@ package com.bithacker.view.ui.activity
 		
 		private function addActivityEntry(activityEntry : ActivityEntry) : void
 		{
-			getContentLayer().addChild(activityEntry);
-			_layout.addComponent(activityEntry);
+			getContentLayer().addElement(activityEntry);
+			_layout.addElement(activityEntry);
 			_activityEntries.push(activityEntry);
 		}
 		
 		private function removeActivityEntry(activityEntry : ActivityEntry) : void
 		{
-			getContentLayer().removeChild(activityEntry);
-			_layout.removeComponent(activityEntry);
+			getContentLayer().removeElement(activityEntry);
+			_layout.removeElement(activityEntry);
 			activityEntry.destroy();
 		}
 	}

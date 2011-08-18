@@ -1,25 +1,19 @@
 package com.bithacker.view.ui.core.text
 {
-	import com.bithacker.view.ui.core.Component;
+	import com.bithacker.view.ui.core.Element;
 	
 	import flash.text.AntiAliasType;
 	import flash.text.TextField;
 	import flash.text.TextFormat;
 
-	public class WrappedTextField extends Component
+	public class WrappedTextField extends Element
 	{
 		private var _textField : TextField;
 
-		public function WrappedTextField(textField : TextField = null)
+		public function WrappedTextField(textField : TextField)
 		{
-			super();
+			super(textField);
 
-			if (textField == null)
-			{
-				textField = new TextField();
-				addChild(textField);
-			}
-			
 			_textField = textField;
 
 			initialise();

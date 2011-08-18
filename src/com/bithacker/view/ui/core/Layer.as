@@ -1,13 +1,12 @@
 package com.bithacker.view.ui.core
 {
-	import flash.geom.Point;
-	import flash.geom.Rectangle;
+	import flash.display.Sprite;
 
-	public class Layer extends Component
+	public class Layer extends Element
 	{
 		public function Layer()
 		{
-			super();
+			super(new Sprite());
 		}
 	}
 }

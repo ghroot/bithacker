@@ -1,14 +1,13 @@
 package com.bithacker.view.ui.shop
 {
-	import com.bithacker.main.BitHacker;
-	import com.bithacker.model.activity.software.SoftwareActivity;
 	import com.bithacker.model.item.Description;
-	import com.bithacker.model.item.Item;
-	import com.bithacker.model.item.software.SoftwareItem;
 	import com.bithacker.util.DisplayUtil;
 	import com.bithacker.view.ui.SubScreen;
 	import com.bithacker.view.ui.core.Button;
+	import com.bithacker.view.ui.core.ScreenSize;
 	import com.bithacker.view.ui.core.text.WrappedTextField;
+	
+	import flash.text.TextField;
 
 	public class ShopItemSubScreen extends SubScreen
 	{
@@ -27,30 +26,18 @@ package com.bithacker.view.ui.shop
 
 		private function initialise() : void
 		{
-			_textField = new WrappedTextField();
+			_textField = new WrappedTextField(new TextField());
+			_textField.width = ScreenSize.WIDTH;
 			_textField.height = 60;
 			_textField.setFont("wendy");
 			_textField.setSize(20);
 			_textField.text = _description.getName();
-			addChild(_textField);
+			addElement(_textField);
 
-			_buyButton = new Button(DisplayUtil.createSprite(60, 25, 0x888888));
+			_buyButton = new BuyButton(DisplayUtil.createMovieClipFromName("BuyButtonScene"), _description);
 			_buyButton.x = 10;
 			_buyButton.y = 50;
-			_buyButton.clicked.add(onBuyButtonClicked);
-			addChild(_buyButton);
-		}
-
-		private function onBuyButtonClicked() : void
-		{
-			var itemToBuy : Item = _description.createItem();
-			BitHacker.getUser().buy(itemToBuy);
-			
-			// TEMP: Start software activity
-			if (itemToBuy is SoftwareItem)
-			{
-				BitHacker.getUser().addAndStartActivity(new SoftwareActivity(itemToBuy as SoftwareItem));
-			}
+			addElement(_buyButton);
 		}
 	}
 }

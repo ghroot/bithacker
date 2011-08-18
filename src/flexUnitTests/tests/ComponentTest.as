@@ -1,6 +1,6 @@
 package flexUnitTests.tests
 {
-	import com.bithacker.view.ui.core.Component;
+	import com.bithacker.view.ui.core.Element;
 	
 	import flash.geom.Point;
 	
@@ -31,7 +31,7 @@ package flexUnitTests.tests
 		[Test]
 		public function testComponent() : void
 		{
-			var component : Component = new Component(new Point(120, 60));
+			var component : Element = new Element(new Point(120, 60));
 			Assert.assertEquals(120, component.width);
 			Assert.assertEquals(60, component.height);
 		}

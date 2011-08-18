@@ -28,7 +28,7 @@ package com.bithacker.view.ui.hardware
 		{
 			clicked.add(onClick);
 			
-			_textField = new WrappedTextField(DisplayUtil.findChildByName(this, "textField") as TextField);
+			_textField = new WrappedTextField(findChildTextFieldWithName("textField"));
 			
 			refresh();
 		}

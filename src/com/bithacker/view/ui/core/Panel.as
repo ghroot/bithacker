@@ -2,13 +2,15 @@ package com.bithacker.view.ui.core
 {
 	import com.bithacker.util.DisplayUtil;
 	
+	import flash.display.DisplayObject;
+	import flash.display.Sprite;
 	import flash.geom.Point;
 	
-	public class Panel extends Component
+	public class Panel extends Element
 	{
-		public function Panel(size : Point, backgroundColor : uint = 0xffffff)
+		public function Panel(displayObject : DisplayObject)
 		{
-			super(DisplayUtil.createSprite(size.x, size.y, backgroundColor));
+			super(displayObject);
 		}
 	}
 }

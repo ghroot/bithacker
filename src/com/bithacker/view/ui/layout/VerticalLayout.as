@@ -10,10 +10,10 @@ package com.bithacker.view.ui.layout
 		override public function arrange() : void
 		{
 			var currentY : Number = 0;
-			for (var i : uint = 0; i < components.length; i++)
+			for (var i : uint = 0; i < elements.length; i++)
 			{
-				components[i].y = currentY;
-				currentY += components[i].height;
+				elements[i].y = currentY;
+				currentY += elements[i].height;
 			}
 		}
 	}

@@ -35,7 +35,7 @@ package com.bithacker.main
 			createDefaultItems();
 			
 			_mainScreen = new MainScreen();
-			addChild(_mainScreen);
+			addChild(_mainScreen.getDisplayObject());
 		}
 
 		public static function getMainScreen() : MainScreen

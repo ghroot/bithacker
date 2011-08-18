@@ -30,8 +30,8 @@ package com.bithacker.view.ui.shop
 			for (var i : uint = 0; i < descriptions.length; i++)
 			{
 				var shopListEntry : ShopListEntry = new ShopListEntry(descriptions[i]);
-				getContentLayer().addChild(shopListEntry);
-				_layout.addComponent(shopListEntry);
+				getContentLayer().addElement(shopListEntry);
+				_layout.addElement(shopListEntry);
 			}
 			
 			_layout.arrange();

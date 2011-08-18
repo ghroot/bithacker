@@ -1,9 +1,10 @@
 package com.bithacker.view.ui.core
 {
+	import flash.display.Sprite;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
 
-	public class Screen extends Component
+	public class Screen extends Element
 	{
 		private var _size : Point;
 		private var _contentLayer : Layer;
@@ -11,7 +12,7 @@ package com.bithacker.view.ui.core
 		
 		public function Screen(size : Point)
 		{
-			super();
+			super(new Sprite());
 			
 			_size = size;
 			
@@ -20,17 +21,28 @@ package com.bithacker.view.ui.core
 		
 		private function initialise() : void
 		{
-			setMaskArea(new Rectangle(0, 0, _size.x, _size.y));
-			
 			_contentLayer = new Layer();
 			
-			_scrollArea = new ScrollArea(_size.clone(), _contentLayer);
-			addChild(_scrollArea);
+			setMaskArea(new Rectangle(0, 0, _size.x, _size.y));
+			
+			updateScrollAreaFromSize();
 		}
 		
 		public function getContentLayer() : Layer
 		{
 			return _contentLayer;
+		}
+		
+		private function updateScrollAreaFromSize() : void
+		{
+			if (_scrollArea != null)
+			{
+				_scrollArea.destroy();
+				removeElement(_scrollArea);
+				_scrollArea = null;
+			}
+			_scrollArea = new ScrollArea(_size.clone(), _contentLayer);
+			addElement(_scrollArea);
 		}
 	}
 }

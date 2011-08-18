@@ -35,8 +35,8 @@ package com.bithacker.view.ui.hardware
 			for (var i : uint = 0; i < _motherboardSlots.length; i++)
 			{
 				var motherboardSlotEntry : MotherboardSlotEntry = new MotherboardSlotEntry(_motherboardSlots[i]);
-				getContentLayer().addChild(motherboardSlotEntry);
-				_layout.addComponent(motherboardSlotEntry);
+				getContentLayer().addElement(motherboardSlotEntry);
+				_layout.addElement(motherboardSlotEntry);
 			}
 			
 			_layout.arrange();

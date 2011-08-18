@@ -1,23 +1,22 @@
 package com.bithacker.view.ui.core
 {
-	import com.bithacker.util.DisplayUtil;
-	
+	import flash.display.DisplayObject;
 	import flash.display.Sprite;
 
-	public class ProgressBar extends Component
+	public class ProgressBar extends Element
 	{
 		private var _barSprite : Sprite;
 		
-		public function ProgressBar(sprite : Sprite)
+		public function ProgressBar(displayObject : DisplayObject)
 		{
-			super(sprite);
+			super(displayObject);
 
 			initialise();
 		}
 
 		private function initialise() : void
 		{
-			_barSprite = DisplayUtil.findChildByName(getSprite(), "bar") as Sprite;
+			_barSprite = findChildSpriteWithName("bar");
 		}
 		
 		public function setRatio(ratio : Number) : void

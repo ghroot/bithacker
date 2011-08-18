@@ -1,10 +1,10 @@
 package com.bithacker.view.ui.layout
 {
-	import com.bithacker.view.ui.core.Component;
+	import com.bithacker.view.ui.core.Element;
 
 	public class Layout
 	{
-		protected var components : Vector.<Component>;
+		protected var elements : Vector.<Element>;
 
 		public function Layout()
 		{
@@ -13,17 +13,17 @@ package com.bithacker.view.ui.layout
 
 		private function initialise() : void
 		{
-			components = new Vector.<Component>();
+			elements = new Vector.<Element>();
 		}
 		
-		public function addComponent(component : Component) : void
+		public function addElement(element : Element) : void
 		{
-			components.push(component);
+			elements.push(element);
 		}
 		
-		public function removeComponent(component : Component) : void
+		public function removeElement(element : Element) : void
 		{
-			components.splice(components.indexOf(component), 1);
+			elements.splice(elements.indexOf(element), 1);
 		}
 
 		public function arrange() : void

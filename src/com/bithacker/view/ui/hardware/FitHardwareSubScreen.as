@@ -41,8 +41,8 @@ package com.bithacker.view.ui.hardware
 			for (var i : uint = 0; i < unFittedHardwareItems.length; i++)
 			{
 				var fitHardwareEntry : FitHardwareEntry = new FitHardwareEntry(getMotherboardSlot(), unFittedHardwareItems[i]);
-				getContentLayer().addChild(fitHardwareEntry);
-				_layout.addComponent(fitHardwareEntry);
+				getContentLayer().addElement(fitHardwareEntry);
+				_layout.addElement(fitHardwareEntry);
 			}
 			
 			_layout.arrange();

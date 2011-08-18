@@ -1,16 +1,18 @@
 package com.bithacker.view.ui
 {
 	import com.bithacker.main.BitHacker;
-	import com.bithacker.util.DisplayUtil;
 	import com.bithacker.view.ui.core.Button;
+	
+	import flash.display.DisplayObject;
+	import flash.display.Sprite;
 	
 	public class BottomPanelButton extends Button
 	{
 		private var _screenClass : Class;
 		
-		public function BottomPanelButton(screenClass : Class)
+		public function BottomPanelButton(displayObject : DisplayObject, screenClass : Class)
 		{
-			super(DisplayUtil.createSprite(50, 50, 0xcccccc));
+			super(displayObject);
 			
 			_screenClass = screenClass;
 			

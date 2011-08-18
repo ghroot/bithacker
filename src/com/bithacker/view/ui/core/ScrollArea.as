@@ -10,7 +10,7 @@ package com.bithacker.view.ui.core
 	
 	import org.osflash.signals.natives.NativeSignal;
 	
-	public class ScrollArea extends Component
+	public class ScrollArea extends Element
 	{
 		private var _size : Point;
 		private var _scrollableLayer : Layer;
@@ -24,11 +24,11 @@ package com.bithacker.view.ui.core
 		private var _draggingContentMouseOffset : Point;
 		private var _draggingContentPositionY : Number;
 		private var _draggingContentVelY : Number = 0;
-		private var _draggingScrollHandle : Sprite;
+		private var _draggingScrollHandle : Element;
 		
 		public function ScrollArea(size : Point, scrollableLayer : Layer)
 		{
-			super();
+			super(new Sprite());
 			
 			_size = size;
 			_scrollableLayer = scrollableLayer;
@@ -40,7 +40,7 @@ package com.bithacker.view.ui.core
 		{
 			setMaskArea(new Rectangle(0, 0, _size.x, _size.y));
 			
-			addChild(_scrollableLayer);
+			addElement(_scrollableLayer);
 			
 			initialiseScrollHandle();
 			
@@ -49,17 +49,17 @@ package com.bithacker.view.ui.core
 		
 		private function initialiseScrollHandle() : void
 		{
-			_draggingScrollHandle = DisplayUtil.createSprite(5, 20, 0);
+			_draggingScrollHandle = new Element(DisplayUtil.createSprite(5, 20, 0));
 			_draggingScrollHandle.x = width - _draggingScrollHandle.width - 1;
 			_draggingScrollHandle.alpha = 0;
-			addChild(_draggingScrollHandle);	
+			addElement(_draggingScrollHandle);	
 		}
 		
 		private function initialiseSignals() : void
 		{
-			_mouseDown = new NativeSignal(this, MouseEvent.MOUSE_DOWN, MouseEvent);
-			_mouseUp = new NativeSignal(this, MouseEvent.MOUSE_UP, MouseEvent);
-			_mouseMove = new NativeSignal(this, MouseEvent.MOUSE_MOVE, MouseEvent);
+			_mouseDown = new NativeSignal(getDisplayObject(), MouseEvent.MOUSE_DOWN, MouseEvent);
+			_mouseUp = new NativeSignal(getDisplayObject(), MouseEvent.MOUSE_UP, MouseEvent);
+			_mouseMove = new NativeSignal(getDisplayObject(), MouseEvent.MOUSE_MOVE, MouseEvent);
 			
 			_mouseDown.add(onMouseDown);
 			_mouseUp.add(onMouseUp);
@@ -75,6 +75,8 @@ package com.bithacker.view.ui.core
 		override public function destroy() : void
 		{
 			super.destroy();
+			
+			removeElement(_scrollableLayer);
 			
 			destroySignals();
 		}
@@ -130,7 +132,7 @@ package com.bithacker.view.ui.core
 		private function startScrollDrag() : void
 		{
 			_draggingContentMouseStartPosition = new Point(_scrollableLayer.x, _scrollableLayer.y);
-			_draggingContentMouseOffset = new Point(mouseX, mouseY);
+			_draggingContentMouseOffset = new Point(getDisplayObject().mouseX, getDisplayObject().mouseY);
 			_isDraggingContent = true;
 			_draggingContentVelY = 0;	
 		}
@@ -153,7 +155,7 @@ package com.bithacker.view.ui.core
 			if (_isDraggingContent)
 			{
 				_draggingContentPositionY = _scrollableLayer.y;
-				_scrollableLayer.y = _draggingContentMouseStartPosition.add(new Point(mouseX, mouseY).subtract(_draggingContentMouseOffset)).y;
+				_scrollableLayer.y = _draggingContentMouseStartPosition.add(new Point(getDisplayObject().mouseX, getDisplayObject().mouseY).subtract(_draggingContentMouseOffset)).y;
 			}
 			else
 			{

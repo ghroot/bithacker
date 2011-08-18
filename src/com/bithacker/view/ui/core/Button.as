@@ -1,5 +1,6 @@
 package com.bithacker.view.ui.core
 {
+	import flash.display.DisplayObject;
 	import flash.display.Sprite;
 	import flash.events.MouseEvent;
 	import flash.geom.Point;
@@ -8,7 +9,7 @@ package com.bithacker.view.ui.core
 	import org.osflash.signals.Signal;
 	import org.osflash.signals.natives.NativeSignal;
 	
-	public class Button extends Component
+	public class Button extends Element
 	{
 		private static const MAX_MOUSE_POSITION_DISTANCE_FOR_CLICK : uint = 5;
 		
@@ -23,9 +24,9 @@ package com.bithacker.view.ui.core
 		
 		public var clicked : Signal;
 		
-		public function Button(sprite : Sprite)
+		public function Button(displayObject : DisplayObject)
 		{
-			super(sprite);
+			super(displayObject);
 			
 			initialise();
 		}
@@ -38,18 +39,18 @@ package com.bithacker.view.ui.core
 			_buttonStateToLabelMapping[ButtonState.UP] = "up";
 			_buttonStateToLabelMapping[ButtonState.DOWN] = "down";
 			
-			useHandCursor = true;
-			buttonMode = true;
+			getDisplayObjectAsSprite().useHandCursor = true;
+			getDisplayObjectAsSprite().buttonMode = true;
 			
 			setButtonState(ButtonState.UP);
 		}
 		
 		private function initialiseSignals() : void
 		{
-			_mouseDown = new NativeSignal(this, MouseEvent.MOUSE_DOWN, MouseEvent);
-			_mouseUp = new NativeSignal(this, MouseEvent.MOUSE_UP, MouseEvent);
-			_mouseMove = new NativeSignal(this, MouseEvent.MOUSE_MOVE, MouseEvent);
-			_mouseOut = new NativeSignal(this, MouseEvent.MOUSE_OUT, MouseEvent);
+			_mouseDown = new NativeSignal(getDisplayObject(), MouseEvent.MOUSE_DOWN, MouseEvent);
+			_mouseUp = new NativeSignal(getDisplayObject(), MouseEvent.MOUSE_UP, MouseEvent);
+			_mouseMove = new NativeSignal(getDisplayObject(), MouseEvent.MOUSE_MOVE, MouseEvent);
+			_mouseOut = new NativeSignal(getDisplayObject(), MouseEvent.MOUSE_OUT, MouseEvent);
 			clicked = new Signal();
 			
 			_mouseDown.add(onMouseDown);
@@ -82,15 +83,15 @@ package com.bithacker.view.ui.core
 		{
 			_buttonState = buttonState;
 			
-			if (getSpriteAsMovieClip() != null)
+			if (getDisplayObjectAsMovieClip() != null)
 			{
-				getSpriteAsMovieClip().gotoAndStop(_buttonStateToLabelMapping[_buttonState]);
+				getDisplayObjectAsMovieClip().gotoAndStop(_buttonStateToLabelMapping[_buttonState]);
 			}
 		}
 		
 		private function onMouseDown(event : MouseEvent) : void
 		{
-			_mouseDownGlobalPosition = localToGlobal(new Point(mouseX, mouseY));
+			_mouseDownGlobalPosition = getDisplayObject().localToGlobal(new Point(getDisplayObject().mouseX, getDisplayObject().mouseY));
 			setButtonState(ButtonState.DOWN);
 		}
 		
@@ -127,7 +128,7 @@ package com.bithacker.view.ui.core
 		
 		private function isCurrentMousePositionCloseToMouseDownPosition() : Boolean
 		{
-			return Point.distance(_mouseDownGlobalPosition, localToGlobal(new Point(mouseX, mouseY))) <= MAX_MOUSE_POSITION_DISTANCE_FOR_CLICK;
+			return Point.distance(_mouseDownGlobalPosition, getDisplayObject().localToGlobal(new Point(getDisplayObject().mouseX, getDisplayObject().mouseY))) <= MAX_MOUSE_POSITION_DISTANCE_FOR_CLICK;
 		}
 	}
 }

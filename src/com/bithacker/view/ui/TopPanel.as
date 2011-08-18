@@ -10,13 +10,13 @@ package com.bithacker.view.ui
 
 	public class TopPanel extends Panel
 	{
-		public static const HEIGHT : uint = 30;
+		public static const HEIGHT : uint = 50;
 
 		private var _backButton : Button;
 
 		public function TopPanel()
 		{
-			super(new Point(ScreenSize.WIDTH, HEIGHT), 0xdddddd);
+			super(DisplayUtil.createSpriteFromName("TopPanelScene"));
 
 			initialise();
 		}
@@ -28,11 +28,8 @@ package com.bithacker.view.ui
 
 		private function initialiseBackButton() : void
 		{
-			_backButton = new Button(DisplayUtil.createMovieClipFromName("BackButtonScene"));
-			_backButton.x = 2;
-			_backButton.y = 2;
+			_backButton = new Button(findChildMovieClipWithName("backButton"));
 			_backButton.clicked.add(onBackButtonClicked);
-			addChild(_backButton);
 		}
 		
 		public function getBackButton() : Button

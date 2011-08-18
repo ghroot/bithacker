@@ -34,11 +34,11 @@ package com.bithacker.view.ui.activity
 		{
 			clicked.add(onClick);
 			
-			_nameTextField = new WrappedTextField(DisplayUtil.findChildByName(this, "nameTextField") as TextField);
-			_timeTextField = new WrappedTextField(DisplayUtil.findChildByName(this, "timeTextField") as TextField);
-			_percentTextField = new WrappedTextField(DisplayUtil.findChildByName(this, "percentTextField") as TextField);
+			_nameTextField = new WrappedTextField(findChildTextFieldWithName("nameTextField"));
+			_timeTextField = new WrappedTextField(findChildTextFieldWithName("timeTextField"));
+			_percentTextField = new WrappedTextField(findChildTextFieldWithName("percentTextField"));
 			
-			_progressBar = new ProgressBar(DisplayUtil.findChildByName(this, "progressBar") as Sprite);
+			_progressBar = new ProgressBar(findChildDisplayObjectWithName("progressBar"));
 			
 			refresh();
 		}

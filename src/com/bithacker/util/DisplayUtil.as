@@ -12,21 +12,26 @@ package com.bithacker.util
 
 	public class DisplayUtil
 	{
-		public static function createMovieClipFromName(name : String) : MovieClip
+		public static function createSpriteFromName(name : String) : Sprite
 		{
 			try
 			{
-				var mcClass : Class = getDefinitionByName(name) as Class;
-				return new mcClass();
+				var spriteClass : Class = getDefinitionByName(name) as Class;
+				return new spriteClass();
 			} 
 			catch (e : Error)
 			{
 				if (CONFIG::DEBUG)
 				{
-					Debug.warning("Could not load MovieClip: " + name);
+					Debug.warning("Could not load Sprite: " + name);
 				}
 			}
 			return null;
+		}
+		
+		public static function createMovieClipFromName(name : String) : MovieClip
+		{
+			return createSpriteFromName(name) as MovieClip;
 		}
 		
 		public static function createSprite(width : int, height : int, color : uint) : Sprite

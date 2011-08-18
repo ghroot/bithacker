@@ -27,20 +27,21 @@ package com.bithacker.view.ui
 			initialiseTopPanel();
 			initialiseBottomPanel();
 			
+			// TEMP: Start on ShopListSubScreen
 			setSubScreen(new ShopListSubScreen());
 		}
 
 		private function initialiseTopPanel() : void
 		{
 			_topPanel = new TopPanel();
-			addChild(_topPanel);
+			addElement(_topPanel);
 		}
 
 		private function initialiseBottomPanel() : void
 		{
 			_bottomPanel = new BottomPanel();
 			_bottomPanel.y = height - _bottomPanel.height;
-			addChild(_bottomPanel);
+			addElement(_bottomPanel);
 		}
 		
 		private function destroyPreviousSubScreens() : void
@@ -56,7 +57,7 @@ package com.bithacker.view.ui
 		{
 			if (_subScreen != null)
 			{
-				removeChild(_subScreen);
+				removeElement(_subScreen);
 				
 				if (canGoBackToPreviousScreen)
 				{
@@ -70,12 +71,12 @@ package com.bithacker.view.ui
 			}
 
 			_subScreen = newSubScreen;
-			_subScreen.y = TopPanel.HEIGHT;
+			_subScreen.y = _topPanel.height;
 			_subScreen.refresh();
 			
 			if (_subScreen != null)
 			{
-				addChild(_subScreen);
+				addElement(_subScreen);
 			}
 			
 			_topPanel.getBackButton().visible = _previousScreens.length > 0;

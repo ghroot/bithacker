@@ -5,11 +5,10 @@ package com.bithacker.view.ui.hardware
 	import com.bithacker.model.item.hardware.MotherboardSlot;
 	import com.bithacker.util.DisplayUtil;
 	import com.bithacker.view.ui.core.Button;
-	import com.bithacker.view.ui.core.ScreenSize;
 	import com.bithacker.view.ui.core.text.WrappedTextField;
 	
 	import flash.display.Sprite;
-	import flash.geom.Point;
+	import flash.text.TextField;
 
 	public class FitHardwareEntry extends Button
 	{
@@ -19,7 +18,7 @@ package com.bithacker.view.ui.hardware
 		
 		public function FitHardwareEntry(motherboardSlot : MotherboardSlot, hardwareItem : HardwareItem)
 		{
-			super(DisplayUtil.createSprite(ScreenSize.WIDTH, 80, 0xbbbbbb));
+			super(DisplayUtil.createMovieClipFromName("MotherboardSlotEntryScene"));
 			
 			_motherboardSlot = motherboardSlot;
 			_hardwareItem = hardwareItem;
@@ -31,17 +30,7 @@ package com.bithacker.view.ui.hardware
 		{
 			clicked.add(onClick);
 			
-			_textField = new WrappedTextField();
-			_textField.width = width;
-			_textField.height = 60;
-			_textField.setFont("wendy");
-			_textField.setSize(20);
-			addChild(_textField);
-			
-			var borderSprite : Sprite = new Sprite();
-			borderSprite.graphics.lineStyle(1, 0);
-			borderSprite.graphics.drawRect(0, 0, width - 1, height - 1);
-			addChild(borderSprite);
+			_textField = new WrappedTextField(findChildTextFieldWithName("textField"));
 			
 			refresh();
 		}
