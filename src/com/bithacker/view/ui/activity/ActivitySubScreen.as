@@ -59,5 +59,10 @@ package com.bithacker.view.ui.activity
 			_layout.removeElement(activityEntry);
 			activityEntry.destroy();
 		}
+		
+		override public function getTitleText() : String
+		{
+			return "Activities";
+		}
 	}
 }

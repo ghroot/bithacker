@@ -61,7 +61,7 @@ package com.bithacker.view.ui.hardware
 			}
 			else
 			{
-				BitHacker.getMainScreen().setSubScreen(new FitHardwareSubScreen(getMotherboardSlot()), true);
+				BitHacker.getMainScreen().setNextSubScreen(new FitHardwareSubScreen(getMotherboardSlot()));
 			}
 		}
 	}

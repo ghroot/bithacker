@@ -29,13 +29,13 @@ package com.bithacker.view.ui
 		{
 			_buttons = new Vector.<BottomPanelButton>();
 			
-			var motherboardScreenButton : Button = new BottomPanelButton(findChildMovieClipWithName("motherboardButton"), MotherboardSubScreen);
+			var motherboardScreenButton : Button = new BottomPanelButton(findChildMovieClipWithName("motherboardButton"), MotherboardSubScreen, "COM");
 			_buttons.push(motherboardScreenButton);
 			
-			var shopScreenButton : Button = new BottomPanelButton(findChildMovieClipWithName("shopButton"), ShopListSubScreen);
+			var shopScreenButton : Button = new BottomPanelButton(findChildMovieClipWithName("shopButton"), ShopListSubScreen, "SHO");
 			_buttons.push(shopScreenButton);
 			
-			var activityScreenButton : Button = new BottomPanelButton(findChildMovieClipWithName("activityButton"), ActivitySubScreen);
+			var activityScreenButton : Button = new BottomPanelButton(findChildMovieClipWithName("activityButton"), ActivitySubScreen, "ACT");
 			_buttons.push(activityScreenButton);
 		}
 	}

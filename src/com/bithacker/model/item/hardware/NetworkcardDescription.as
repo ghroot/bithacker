@@ -7,9 +7,9 @@ package com.bithacker.model.item.hardware
 	{
 		private var _bandwidth : uint;
 		
-		public function NetworkcardDescription(name : String, cost : Cost, bandwidth : uint)
+		public function NetworkcardDescription(id : uint, name : String, cost : Cost, bandwidth : uint)
 		{
-			super(name, cost);
+			super(id, name, cost);
 			
 			_bandwidth = bandwidth;
 		}

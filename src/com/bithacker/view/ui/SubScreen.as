@@ -17,5 +17,10 @@ package com.bithacker.view.ui
 		private function initialise() : void
 		{
 		}
+		
+		public function getTitleText() : String
+		{
+			return "";
+		}
 	}
 }

@@ -148,9 +148,9 @@ package com.bithacker.view.ui.core
 
 		private function tickChildElements() : void
 		{
-			for each (var childElement : Element in _childElements)
+			for (var i : int = _childElements.length - 1; i >= 0; i--)
 			{
-				childElement.tick();
+				_childElements[i].tick();
 			}
 		}
 		

@@ -5,6 +5,7 @@ package com.bithacker.view.ui
 	import com.bithacker.view.ui.core.Button;
 	import com.bithacker.view.ui.core.Panel;
 	import com.bithacker.view.ui.core.ScreenSize;
+	import com.bithacker.view.ui.core.text.WrappedTextField;
 	
 	import flash.geom.Point;
 
@@ -13,6 +14,7 @@ package com.bithacker.view.ui
 		public static const HEIGHT : uint = 50;
 
 		private var _backButton : Button;
+		private var _titleTextField : WrappedTextField;
 
 		public function TopPanel()
 		{
@@ -24,6 +26,8 @@ package com.bithacker.view.ui
 		private function initialise() : void
 		{
 			initialiseBackButton();
+			
+			_titleTextField = new WrappedTextField(findChildTextFieldWithName("titleTextField"));
 		}
 
 		private function initialiseBackButton() : void
@@ -39,7 +43,12 @@ package com.bithacker.view.ui
 		
 		private function onBackButtonClicked() : void
 		{
-			BitHacker.getMainScreen().goToPreviousScreen();
+			BitHacker.getMainScreen().setPreviousSubScreen();
+		}
+		
+		public function setTitleText(text : String) : void
+		{
+			_titleTextField.text = text;
 		}
 	}
 }

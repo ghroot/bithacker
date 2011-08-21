@@ -55,7 +55,7 @@ package com.bithacker.view.ui.hardware
 		private function onClick() : void
 		{
 			getMotherboardSlot().fitHardwareItem(getHardwareItem());
-			BitHacker.getMainScreen().goToPreviousScreen();
+			BitHacker.getMainScreen().setPreviousSubScreen();
 		}
 	}
 }

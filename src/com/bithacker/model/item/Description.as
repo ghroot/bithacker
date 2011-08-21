@@ -1,24 +1,18 @@
 package com.bithacker.model.item
 {
 	import com.bithacker.debug.Assert;
+	import com.bithacker.model.database.DatabaseNode;
 	import com.bithacker.model.database.currency.Cost;
 
-	public class Description
+	public class Description extends DatabaseNode
 	{
-		private var _name : String;
 		private var _cost : Cost;
 		
-		public function Description(name : String, cost : Cost)
+		public function Description(id : uint, name : String, cost : Cost)
 		{
-			super();
+			super(id, name);
 			
-			_name = name;
 			_cost = cost;
-		}
-		
-		public function getName() : String
-		{
-			return _name;
 		}
 		
 		public function getCost() : Cost

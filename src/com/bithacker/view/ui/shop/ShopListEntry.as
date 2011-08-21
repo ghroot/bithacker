@@ -42,7 +42,7 @@ package com.bithacker.view.ui.shop
 		private function onClick() : void
 		{
 			var shopItemSubScreen : ShopItemSubScreen = new ShopItemSubScreen(_description);
-			BitHacker.getMainScreen().setSubScreen(shopItemSubScreen, true);
+			BitHacker.getMainScreen().setNextSubScreen(shopItemSubScreen);
 		}
 	}
 }

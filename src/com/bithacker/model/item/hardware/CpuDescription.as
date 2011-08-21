@@ -7,9 +7,9 @@ package com.bithacker.model.item.hardware
 	{
 		private var _speed : uint;
 		
-		public function CpuDescription(name : String, cost : Cost, speed : uint)
+		public function CpuDescription(id : uint, name : String, cost : Cost, speed : uint)
 		{
-			super(name, cost);
+			super(id, name, cost);
 			
 			_speed = speed;
 		}

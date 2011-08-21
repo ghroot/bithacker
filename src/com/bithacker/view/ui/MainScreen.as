@@ -10,8 +10,8 @@ package com.bithacker.view.ui
 	{
 		private var _topPanel : TopPanel;
 		private var _bottomPanel : BottomPanel;
-		private var _subScreen : Screen;
-		private var _previousScreens : Vector.<SubScreen>;
+		private var _subScreen : SubScreen;
+		private var _previousSubScreens : Vector.<SubScreen>;
 
 		public function MainScreen()
 		{
@@ -22,7 +22,7 @@ package com.bithacker.view.ui
 
 		private function initialise() : void
 		{
-			_previousScreens = new Vector.<SubScreen>();
+			_previousSubScreens = new Vector.<SubScreen>();
 			
 			initialiseTopPanel();
 			initialiseBottomPanel();
@@ -46,28 +46,50 @@ package com.bithacker.view.ui
 		
 		private function destroyPreviousSubScreens() : void
 		{
-			for (var i : int = _previousScreens.length - 1; i >= 0; i--)
+			for (var i : int = _previousSubScreens.length - 1; i >= 0; i--)
 			{
-				_previousScreens[i].destroy();
+				_previousSubScreens[i].destroy();
 			}
-			_previousScreens.splice(0, _previousScreens.length);
+			_previousSubScreens.splice(0, _previousSubScreens.length);
+		}
+
+		public function setNewSubScreen(newSubScreen : SubScreen) : void
+		{
+			destroyCurrentSubScreen();
+			destroyPreviousSubScreens();
+			setSubScreen(newSubScreen);
 		}
 		
-		public function setSubScreen(newSubScreen : SubScreen, canGoBackToPreviousScreen : Boolean = false) : void
+		public function setNextSubScreen(nextSubScreen : SubScreen) : void
+		{
+			addCurrentSubScreenToPreviousSubScreens();
+			setSubScreen(nextSubScreen);
+		}
+		
+		public function setPreviousSubScreen() : void
+		{
+			destroyCurrentSubScreen();
+			setSubScreen(_previousSubScreens.pop());
+		}
+		
+		private function destroyCurrentSubScreen() : void
+		{
+			if (_subScreen != null)
+			{
+				_subScreen.destroy();
+			}
+		}
+		
+		private function addCurrentSubScreenToPreviousSubScreens() : void
+		{
+			_previousSubScreens.push(_subScreen);
+		}
+		
+		private function setSubScreen(newSubScreen : SubScreen) : void
 		{
 			if (_subScreen != null)
 			{
 				removeElement(_subScreen);
-				
-				if (canGoBackToPreviousScreen)
-				{
-					_previousScreens.push(_subScreen);
-				}
-				else
-				{
-					destroyPreviousSubScreens();
-					_subScreen.destroy();
-				}
 			}
 
 			_subScreen = newSubScreen;
@@ -79,12 +101,14 @@ package com.bithacker.view.ui
 				addElement(_subScreen);
 			}
 			
-			_topPanel.getBackButton().visible = _previousScreens.length > 0;
+			updateBackButtonVisibility();
+			
+			_topPanel.setTitleText(_subScreen.getTitleText());
 		}
 		
-		public function goToPreviousScreen() : void
+		private function updateBackButtonVisibility() : void
 		{
-			setSubScreen(_previousScreens.pop());
+			_topPanel.getBackButton().visible = _previousSubScreens.length > 0;
 		}
 	}
 }

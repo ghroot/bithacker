@@ -7,9 +7,9 @@ package com.bithacker.model.item.hardware
 
 	public class HardwareDescription extends Description
 	{
-		public function HardwareDescription(name : String, cost : Cost)
+		public function HardwareDescription(id : uint, name : String, cost : Cost)
 		{
-			super(name, cost);
+			super(id, name, cost);
 		}
 		
 		override public function createItem() : Item

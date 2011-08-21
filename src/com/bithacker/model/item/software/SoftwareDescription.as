@@ -9,9 +9,9 @@ package com.bithacker.model.item.software
 		private var _version : String;
 		private var _runDuration : uint;
 		
-		public function SoftwareDescription(name : String, cost : Cost, version : String, runDuration : uint)
+		public function SoftwareDescription(id : uint, name : String, cost : Cost, version : String, runDuration : uint)
 		{
-			super(name, cost);
+			super(id, name, cost);
 			
 			_version = version;
 			_runDuration = runDuration;
@@ -30,6 +30,11 @@ package com.bithacker.model.item.software
 		override public function createItem() : Item
 		{
 			return new SoftwareItem(this);
+		}
+		
+		override public function getDescriptionText() : String
+		{
+			return getVersion();
 		}
 	}
 }

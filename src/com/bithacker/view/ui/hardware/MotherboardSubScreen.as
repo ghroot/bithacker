@@ -41,5 +41,10 @@ package com.bithacker.view.ui.hardware
 			
 			_layout.arrange();
 		}
+		
+		override public function getTitleText() : String
+		{
+			return "Computer";
+		}
 	}
 }

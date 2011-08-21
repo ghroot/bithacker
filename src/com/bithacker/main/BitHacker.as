@@ -4,6 +4,7 @@ package com.bithacker.main
 	import com.bithacker.model.item.hardware.CpuItem;
 	import com.bithacker.model.item.hardware.MemoryDescription;
 	import com.bithacker.model.item.hardware.MemoryItem;
+	import com.bithacker.model.item.hardware.MotherboardDescription;
 	import com.bithacker.model.item.hardware.MotherboardItem;
 	import com.bithacker.model.user.User;
 	import com.bithacker.view.ui.MainScreen;
@@ -50,18 +51,18 @@ package com.bithacker.main
 		
 		private function createDefaultItems() : void
 		{
-			var motherboardItem : MotherboardItem = Database.instance.getShopDescriptions()[1].createItem() as MotherboardItem;
+			var motherboardItem : MotherboardItem = MotherboardDescription(Database.instance.getDatabaseNodeById(10001)).createItem() as MotherboardItem;
 			_user.addItem(motherboardItem);
 			
-			var cpuItem : CpuItem = Database.instance.getShopDescriptions()[2].createItem() as CpuItem;
-			_user.addItem(cpuItem);
-			cpuItem = Database.instance.getShopDescriptions()[3].createItem() as CpuItem;
-			_user.addItem(cpuItem);
+//			var cpuItem : CpuItem = Database.instance.getShopDescriptions()[2].createItem() as CpuItem;
+//			_user.addItem(cpuItem);
+//			cpuItem = Database.instance.getShopDescriptions()[3].createItem() as CpuItem;
+//			_user.addItem(cpuItem);
 			
-			var memoryItem : MemoryItem = Database.instance.getShopDescriptions()[6].createItem() as MemoryItem;
-			_user.addItem(memoryItem);
+//			var memoryItem : MemoryItem = Database.instance.getShopDescriptions()[6].createItem() as MemoryItem;
+//			_user.addItem(memoryItem);
 			
-			motherboardItem.getFreeMotherboardSlotForHardwareDescriptionClass(MemoryDescription).fitHardwareItem(memoryItem);
+//			motherboardItem.getFreeMotherboardSlotForHardwareDescriptionClass(MemoryDescription).fitHardwareItem(memoryItem);
 		}
 		
 		private function onEnterFrame(event : Event) : void

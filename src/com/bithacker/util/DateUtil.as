@@ -15,7 +15,9 @@ package com.bithacker.util
 			time -= minutes * (1000 * 60);
 			var seconds : int = time / 1000;
 			
-			return StringUtil.fillZeros("" + hours, 2) + ":" + StringUtil.fillZeros("" + minutes, 2) + ":" + StringUtil.fillZeros("" + seconds, 2);
+			return StringUtil.fillZeros("" + hours, 2) + ":" +
+				StringUtil.fillZeros("" + minutes, 2) + ":"+
+				StringUtil.fillZeros("" + seconds, 2) + ":";
 		}
 	}
 }

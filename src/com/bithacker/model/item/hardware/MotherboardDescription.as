@@ -8,9 +8,9 @@ package com.bithacker.model.item.hardware
 		private var _nCpuSlots : uint;
 		private var _nMemorySlots : uint;
 		
-		public function MotherboardDescription(name : String, cost : Cost, nCpuSlots : uint, nMemorySlots : uint)
+		public function MotherboardDescription(id : uint, name : String, cost : Cost, nCpuSlots : uint, nMemorySlots : uint)
 		{
-			super(name, cost);
+			super(id, name, cost);
 			
 			_nCpuSlots = nCpuSlots;
 			_nMemorySlots = nMemorySlots;

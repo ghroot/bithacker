@@ -7,9 +7,9 @@ package com.bithacker.model.item.hardware
 	{
 		private var _capacity : uint;
 
-		public function MemoryDescription(name : String, cost : Cost, capacity : uint)
+		public function MemoryDescription(id : uint, name : String, cost : Cost, capacity : uint)
 		{
-			super(name, cost);
+			super(id, name, cost);
 
 			_capacity = capacity;
 		}
